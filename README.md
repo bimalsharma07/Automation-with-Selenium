@@ -1,9 +1,14 @@
 # Automation-with-Selenium
 
-Automated https://genderize.io/ , where Selenium Tests are executed  
-- website in opened in chrome browser
-- Multiple input names are typed in the text box and searched button is pressed.
-- According to the multiple inputs, which are predefined in the code and the results are validated accordingly.
+Website opened in Chrome. User enters multiple names in the text box and clicks the Search button. Inputs are matched against predefined names in the code, and results are validated.
+
+Test cases:
+
+If a male name like Bimal is entered, it should return "Male name" with a percentage.
+
+If a female name is entered, it should return "Female name" with a percentage.
+
+If a digit is entered, it should throw an error stating the input is invalid.
 
 
 ## Overview
