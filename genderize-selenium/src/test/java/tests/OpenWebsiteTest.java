@@ -23,7 +23,7 @@ public class OpenWebsiteTest {
         driver.manage().window().maximize();
         driver.get("https://genderize.io/");
 
-        // Use LinkedHashMap to maintain insertion order
+        
         Map<String, String> testData = new LinkedHashMap<>();
         testData.put("Bimal", "male");
         testData.put("Sophia", "female");
@@ -31,7 +31,9 @@ public class OpenWebsiteTest {
         testData.put("Emily", "female");
         testData.put("Liam", "male");
         testData.put("Emma", "female");
+        testData.put("23234", "Uh oh. 23234 is unknown to us");  
 
+       
         By inputLocator = By.id("trial-input");
         By buttonLocator = By.xpath("//*[@id='trial-input-form']/button");
         By resultLocator = By.xpath("//*[@id='genderize']/main/div[1]/div[1]/div/p");
@@ -40,33 +42,39 @@ public class OpenWebsiteTest {
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
         for (Map.Entry<String, String> entry : testData.entrySet()) {
-            String name = entry.getKey();
-            String expectedGender = entry.getValue();
+            String input = entry.getKey();
+            String expectedOutput = entry.getValue();
 
-            // Get fresh references
+            
             WebElement inputBox = wait.until(ExpectedConditions.elementToBeClickable(inputLocator));
             WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(buttonLocator));
 
-            // Clear using JavaScript
+           
             js.executeScript("arguments[0].value = '';", inputBox);
-            inputBox.sendKeys(name);
+            inputBox.sendKeys(input);
             
             searchButton.click();
 
-            // Wait for result to update with current name
-            wait.until(ExpectedConditions.textToBePresentInElementLocated(resultLocator, name));
             
-            // Get updated result element
-            WebElement resultElement = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(resultLocator)
-            );
-            String actualResult = resultElement.getText().trim().toLowerCase();
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(resultLocator, input));
+            
+            WebElement resultElement = driver.findElement(resultLocator);
+            String actualResult = resultElement.getText().trim();
 
-            assertTrue(actualResult.contains(expectedGender.toLowerCase()),
-                    "❌ For name: " + name + ", expected gender: " + expectedGender +
-                            ", but got: " + actualResult);
+            
+            if (input.equals("23234")) {
+                // Verify full error message for digits
+                assertTrue(actualResult.equals(expectedOutput),
+                        "❌ For input: " + input + ", expected: '" + expectedOutput +
+                        "', but got: '" + actualResult + "'");
+            } else {
+                // Standard gender verification for names
+                assertTrue(actualResult.toLowerCase().contains(expectedOutput.toLowerCase()),
+                        "❌ For name: " + input + ", expected gender: " + expectedOutput +
+                        ", but got: " + actualResult);
+            }
 
-            System.out.printf("✅ %s → is '%s' as expected%n", name, expectedGender);
+            System.out.printf("✅ %s → '%s' verified%n", input, expectedOutput);
         }
 
         driver.quit();
