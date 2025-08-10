@@ -1,12 +1,12 @@
 # Automation-with-Selenium
 
-Website opened in Chrome. User enters multiple names in the text box and clicks the Search button. Inputs are matched against predefined names in the code, and results are validated.
+The website opened in Chrome. The user enters multiple names in the text box and clicks the Search button. Inputs are matched against predefined names in the code, and results are validated.
 
 Test cases:
 
-If a male name like Bimal is entered, it should return "Male name" with a percentage.
-
-If a female name is entered, it should return "Female name" with a percentage.
+- Opens the website in Google Chrome browser
+- Write a name in the text box and press the search button
+- Given multiple inputs, validated the  input against the result.
 
 If a digit is entered, it should throw an error stating the input is invalid.
 
