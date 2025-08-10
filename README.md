@@ -26,8 +26,4 @@ If a digit is entered, it should throw an error stating the input is invalid.
 - Main automation script is present here - https://github.com/bimalsharma07/Automation-with-Selenium/blob/main/genderize-selenium/src/test/java/tests/OpenWebsiteTest.java
 
 
-
-## Contact
- 
-Connect with [bimalsharma07](https://github.com/bimalsharma07).
 ![Screen Recording 2025-08-08 at 11 13 24 PM (1)](https://github.com/user-attachments/assets/7acf5212-4137-46ee-b044-e5e1b3ad35a4)
